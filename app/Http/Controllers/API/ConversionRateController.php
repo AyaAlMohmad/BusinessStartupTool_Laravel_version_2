@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -8,98 +9,100 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+
 class ConversionRateController extends Controller
 {
     public function index(Request $request)
     {
         $businessId = $this->getValidatedBusinessId($request);
-    
+
         $rates = ConversionRate::where('user_id', Auth::id())
             ->where('business_id', $businessId)
             ->latest()
             ->get();
-    
+
         return response()->json(['data' => $rates]);
     }
-    private function findRateForUser($id, $request)
+
+    private function findRateForUser($id, Request $request)
     {
         $businessId = $this->getValidatedBusinessId($request);
-    
+
         $rate = ConversionRate::where('id', $id)
             ->where('user_id', Auth::id())
             ->where('business_id', $businessId)
             ->first();
-    
+
         if (!$rate) {
             abort(Response::HTTP_NOT_FOUND, 'Conversion Rate not found or access denied');
         }
-    
+
         return $rate;
     }
-        
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'target_revenue' => 'nullable|numeric',
-            'unit_price' => 'nullable|numeric',
-            'interactions_needed' => 'nullable|numeric',
-            'engagement_needed' => 'nullable|numeric',
-            'reach_needed' => 'nullable|numeric'
+            'target_revenue' => 'required|numeric',
+            'unit_price' => 'required|numeric',
+            'interactions_needed' => 'required|numeric',
+            'reach_to_interaction_percentage' => 'required|numeric|min:1|max:100',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Validation error',
                 'errors' => $validator->errors()
             ], 422);
         }
-    
+
         $businessId = $this->getValidatedBusinessId($request);
-    
+
         $rate = ConversionRate::create([
             'user_id' => Auth::id(),
             'business_id' => $businessId,
             'target_revenue' => $request->target_revenue,
             'unit_price' => $request->unit_price,
             'interactions_needed' => $request->interactions_needed,
-            'engagement_needed' => $request->engagement_needed,
-            'reach_needed' => $request->reach_needed,
+            'reach_to_interaction_percentage' => $request->reach_to_interaction_percentage,
         ]);
-    
+
         return response()->json(['data' => $rate], 201);
     }
-    
 
     public function show(Request $request, $id)
     {
         $rate = $this->findRateForUser($id, $request);
         return response()->json(['data' => $rate]);
     }
-    
+
     public function update(Request $request, $id)
     {
         $rate = $this->findRateForUser($id, $request);
-    
+
         $validator = Validator::make($request->all(), [
             'target_revenue' => 'nullable|numeric',
             'unit_price' => 'nullable|numeric',
             'interactions_needed' => 'nullable|numeric',
-            'engagement_needed' => 'nullable|numeric',
-            'reach_needed' => 'nullable|numeric'
+            'reach_to_interaction_percentage' => 'nullable|numeric|min:1|max:100',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Validation error',
                 'errors' => $validator->errors()
             ], 422);
         }
-    
-        $rate->update($request->all());
+
+        $rate->update($request->only([
+            'target_revenue',
+            'unit_price',
+            'interactions_needed',
+            'reach_to_interaction_percentage',
+        ]));
+
         return response()->json(['data' => $rate]);
     }
-    
 
     public function destroy(Request $request, $id)
     {
@@ -107,17 +110,15 @@ class ConversionRateController extends Controller
         $rate->delete();
         return response()->json(null, 204);
     }
-    
+
     private function getValidatedBusinessId(Request $request)
     {
         $businessId = $request->header('business_id');
-        
-       
+
         if (!$businessId) {
             abort(Response::HTTP_UNPROCESSABLE_ENTITY, 'Missing business_id header');
         }
-        
-      
+
         $business = Business::where('id', $businessId)
             ->where('user_id', Auth::id())
             ->first();

@@ -30,14 +30,16 @@
                 <label for="title" class="block text-gray-700 font-medium mb-2">Title</label>
                 <select name="title" id="title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="{{ $video->title }}" selected>{{ $video->title }}</option>
-                    <option value="Business Idea">Business Idea</option>
-                    <option value="Market Research">Market Research</option>
-                    <option value="MVP Development">MVP Development</option>
+                    <option value="Business_Idea">Business Idea</option>
+                    <option value="Testing_Your_Idea">Testing Your Idea</option>
+                    <option value="Market_Research">Market Research</option>
+                    <option value="Start_Simple">Start Simple</option>
                     <option value="Marketing">Marketing</option>
-                    <option value="Sales Strategy">Sales Strategy</option>
-                    <option value="Business Setup">Business Setup</option>
-                    <option value="Financial Planning">Financial Planning</option>
-                    <option value="Launch Preparation">Launch Preparation</option>
+                    <option value="Marketing2">Marketing2</option>
+                    <option value="Sales_Strategy">Sales Strategy</option>
+                    <option value="Sales_Strategy2">Sales Strategy2</option>
+                    <option value="Business_Setup">Business Setup</option>
+                    <option value="Financial_Planning">Financial_Planning</option>
                 </select>
             </div>
 

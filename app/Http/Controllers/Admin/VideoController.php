@@ -34,7 +34,7 @@ class VideoController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('videos.index')
+        return redirect()->route('admin.videos.index')
                          ->with('success', 'Video added successfully.');
     }
 
@@ -79,7 +79,7 @@ class VideoController extends Controller
         $video->description = $request->description;
         $video->save();
     
-        return redirect()->route('videos.index')
+        return redirect()->route('admin.videos.index')
                          ->with('success', 'Video updated successfully.');
     }
 
@@ -93,7 +93,7 @@ class VideoController extends Controller
    
         $video->delete();
     
-        return redirect()->route('videos.index')
+        return redirect()->route('admin.videos.index')
                          ->with('success', 'Video deleted successfully.');
     }
 }

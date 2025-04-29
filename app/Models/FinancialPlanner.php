@@ -12,13 +12,14 @@ class FinancialPlanner extends Model
     protected $fillable = [
         'business_id',
         'user_id',
-        'operational_details',
+        // 'operational_details',
         'notes',
-        'file_path'
+        // 'file_path'
     ];
 
     protected $casts = [
-        'operational_details' => 'array',
+        // 'operational_details' => 'array',
+        'notes' => 'array',
     ];
 
     public function business()

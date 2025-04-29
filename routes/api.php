@@ -9,6 +9,7 @@ use App\Http\Controllers\API\BusinessIdeaController;
 use App\Http\Controllers\API\BusinessSetupController;
 use App\Http\Controllers\API\ConversionRateController;
 use App\Http\Controllers\API\DownloadController;
+use App\Http\Controllers\API\FinancialPlannerController;
 use App\Http\Controllers\API\LaunchPreparationController;
 use App\Http\Controllers\API\LegalStructureController;
 use App\Http\Controllers\API\MarketingChannelController;
@@ -96,6 +97,13 @@ Route::get('/financial-planning', [FinancialPlanningController::class, 'index'])
 Route::get('/financial-planning/{id}', [FinancialPlanningController::class, 'show']); // GET by ID
 Route::put('/financial-planning/{id}', [FinancialPlanningController::class, 'update']);
 Route::post('/financial-planning', [FinancialPlanningController::class, 'store']); // POST create
+
+
+Route::get('/financial-planner', [FinancialPlannerController::class, 'index']); // GET all
+Route::get('/financial-planner/{id}', [FinancialPlannerController::class, 'show']); // GET by ID
+Route::put('/financial-planner/{id}', [FinancialPlannerController::class, 'update']);
+Route::post('/financial-planner', [FinancialPlannerController::class, 'store']);
+
 
 
 Route::apiResource('market-researches', MarketResearchController::class);

@@ -27,8 +27,12 @@ class CreateConversionRatesTable extends Migration
             $table->float('target_revenue');
             $table->float('unit_price');
             $table->float('interactions_needed');
-            $table->float('engagement_needed');
-            $table->float('reach_needed');
+            // $table->float('engagement_needed');
+            // $table->float('reach_needed');
+       
+
+$table->float('reach_to_interaction_percentage'); // 👈 بدل engagement_needed و reach_needed
+
             $table->timestamps();
         });
     }

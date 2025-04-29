@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('business_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->json('operational_details')->nullable();
-            $table->text('notes')->nullable();
-            $table->string('file_path')->nullable();
+            // $table->json('operational_details')->nullable();
+            $table->json('notes')->nullable();
+            // $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }

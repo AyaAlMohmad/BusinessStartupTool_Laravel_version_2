@@ -14,7 +14,8 @@ class ConversionRate extends Model
         'unit_price',
         'interactions_needed',
         'engagement_needed',
-        'reach_needed'
+        'reach_needed',
+        'reach_to_interaction_percentage'
     ];
 
     protected $appends = [
@@ -43,9 +44,14 @@ class ConversionRate extends Model
     {
         return $this->sales_needed * $this->interactions_needed;
     }
-
     public function getTotalReachAttribute()
     {
-        return $this->total_interactions * $this->reach_needed ;
+        return $this->reach_to_interaction_percentage > 0
+            ? $this->total_interactions / ($this->reach_to_interaction_percentage / 100)
+            : 0;
     }
+    // public function getTotalReachAttribute()
+    // {
+    //     return $this->total_interactions * $this->reach_needed ;
+    // }
 }
