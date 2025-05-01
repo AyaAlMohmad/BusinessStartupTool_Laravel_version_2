@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('financial_planners', function (Blueprint $table) {
+        Schema::create('websites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('business_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            // $table->json('operational_details')->nullable();
-            $table->json('notes')->nullable();
-            // $table->string('file_path')->nullable();
+            $table->string('business_name');
+            $table->text('business_description');
+            $table->integer('colour_choice');
+            $table->integer('logo_style_choice');
+            $table->text('about_us');
+            $table->text('social_proof');
+            $table->json('contact_info');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('financial_planners');
+        Schema::dropIfExists('websites');
     }
 };

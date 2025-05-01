@@ -22,6 +22,7 @@ use App\Http\Controllers\API\VideoController;
 use App\Http\Controllers\API\PasswordResetController;
 use App\Http\Controllers\API\SimpleSolutionController;
 use App\Http\Controllers\API\TestingYourIdeaController;
+use App\Http\Controllers\API\WebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +106,12 @@ Route::put('/financial-planner/{id}', [FinancialPlannerController::class, 'updat
 Route::post('/financial-planner', [FinancialPlannerController::class, 'store']);
 
 
+
+
+Route::get('/websites', [WebsiteController::class, 'index']);
+Route::get('/websites/{id}', [WebsiteController::class, 'show']);
+Route::post('/websites', [WebsiteController::class, 'store']);
+Route::put('/websites/{id}', [WebsiteController::class, 'update']);
 
 Route::apiResource('market-researches', MarketResearchController::class);
 
