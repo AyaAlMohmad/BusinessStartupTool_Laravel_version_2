@@ -19,18 +19,17 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             
-            // مفتاح خارجي للأعمال (اختياري)
             $table->unsignedBigInteger('business_id')->nullable();
             $table->foreign('business_id')
                 ->references('id')
                 ->on('businesses')
                 ->onDelete('cascade');
-            $table->json('big_solution')->nullable(); // سؤال: What is my business big Solution?
-            $table->json('entry_strategy')->nullable(); // سؤال: How can I enter the market in the most simple way?
-            $table->json('things')->nullable(); // يحتوي على things_have و things_need
-            $table->json('validation_questions')->nullable(); // سؤال: Questions you need to be answered
-            $table->json('future_plan')->nullable(); // سؤال: What is your plan to move forward
-            $table->json('notes')->nullable(); // سؤال: Notes
+            $table->json('big_solution')->nullable();
+            $table->json('entry_strategy')->nullable(); 
+            $table->json('things')->nullable();
+            $table->json('validation_questions')->nullable(); 
+            $table->json('future_plan')->nullable(); 
+            $table->json('notes')->nullable(); 
         
             $table->timestamps();
         });
