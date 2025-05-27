@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\BusinessController;
 use App\Http\Controllers\Admin\BusinessIdeaController;
+use App\Http\Controllers\Admin\BusinessSetupController;
 use App\Http\Controllers\Admin\ConversionRateController;
+use App\Http\Controllers\Admin\FinancialPlannerController;
 use App\Http\Controllers\Admin\MarketingNewController;
 use App\Http\Controllers\Admin\TestingYourIdeaController;
 use App\Http\Controllers\ProfileController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\MarketResearchController;
 use App\Http\Controllers\Admin\SimpleSolutionController;
+use App\Http\Controllers\Admin\WebsiteController;
 use App\Http\Controllers\ProgressAnalyticsController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -84,6 +87,13 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth', 'admin'])->group(fu
     Route::get('landing', [BusinessController::class, 'analysis'])->name('landing-page.analysis');
     Route::resource('sales-strategies', ConversionRateController::class);
     Route::get('sales/analysis', [ConversionRateController::class, 'analysis'])->name('sales-strategies.analysis');
+    Route::resource('business-setups', BusinessSetupController::class);
+    Route::get('business-setup/analysis', [BusinessSetupController::class, 'analysis'])->name('business-setup.analysis');
+    Route::resource('financial_planners', FinancialPlannerController::class);
+    Route::get('financial-planners/analysis', [FinancialPlannerController::class, 'analysis'])->name('financial_planners.analysis');
+    Route::resource('websites', WebsiteController::class);
+    Route::get('website/analysis', [WebsiteController::class, 'analysis'])->name('websites.analysis');
+
 });
 
 require __DIR__ . '/auth.php';

@@ -100,6 +100,27 @@
                             <i class="fas fa-vial text-pink-500 w-5"></i> {{ __('Testing Your Idea') }}
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.business-setups.index') }}"
+                            class="flex items-center gap-3 px-2 py-1 text-sm text-gray-700 hover:bg-gray-100"
+                            :class="{ 'bg-gray-100': request() - > routeIs('admin.business-setups.index') }">
+                            <i class="fas fa-vial text-pink-500 w-5"></i> {{ __('Business Setups') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.financial_planners.index') }}"
+                            class="flex items-center gap-3 px-2 py-1 text-sm text-gray-700 hover:bg-gray-100"
+                            :class="{ 'bg-gray-100': request() - > routeIs('admin.financial_planners.index') }">
+                            <i class="fas fa-vial text-pink-500 w-5"></i> {{ __('Financial Planners') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.websites.index') }}"
+                            class="flex items-center gap-3 px-2 py-1 text-sm text-gray-700 hover:bg-gray-100"
+                            :class="{ 'bg-gray-100': request() - > routeIs('admin.websites.index') }">
+                            <i class="fas fa-vial text-pink-500 w-5"></i> {{ __('Websites') }}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
