@@ -33,23 +33,38 @@ class ConversionRate extends Model
         return $this->belongsTo(Business::class);
     }
 
+    // public function getSalesNeededAttribute()
+    // {
+    //     return $this->unit_price > 0 
+    //         ? $this->target_revenue / $this->unit_price
+    //         : 0;
+    // }
+       // public function getTotalReachAttribute()
+    // {
+    //     return $this->reach_to_interaction_percentage > 0
+    //         ? $this->total_interactions / ($this->reach_to_interaction_percentage / 100)
+    //         : 0;
+    // }
     public function getSalesNeededAttribute()
     {
-        return $this->unit_price > 0 
-            ? $this->target_revenue / $this->unit_price
+        return $this->unit_price > 0
+            ? round($this->target_revenue / $this->unit_price)
             : 0;
     }
-
+    
     public function getTotalInteractionsAttribute()
     {
-        return $this->sales_needed * $this->interactions_needed;
+        return round($this->sales_needed * $this->interactions_needed);
     }
+    
     public function getTotalReachAttribute()
     {
         return $this->reach_to_interaction_percentage > 0
-            ? $this->total_interactions / ($this->reach_to_interaction_percentage / 100)
+            ? round($this->total_interactions / ($this->reach_to_interaction_percentage / 100))
             : 0;
     }
+    
+
     // public function getTotalReachAttribute()
     // {
     //     return $this->total_interactions * $this->reach_needed ;

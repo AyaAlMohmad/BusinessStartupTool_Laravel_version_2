@@ -18,7 +18,7 @@ class EnsureUserIsAdmin
             if (auth()->user()->is_admin == 1) {
                 return $next($request); // Proceed if user is an admin
             } else {
-                return redirect()->url('https://businesstools.valuenationapp.com'); // Redirect non-admin users to home or another route
+                return redirect()->to('https://businesstools.valuenationapp.com'); // Redirect non-admin users to home or another route
             }
         }
 

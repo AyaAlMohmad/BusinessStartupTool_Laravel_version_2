@@ -8,6 +8,9 @@ class TestingYourIdeaResource extends JsonResource
 {
     public function toArray($request)
     {
+        if (is_null($this->resource)) {
+            return [];
+        }
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,

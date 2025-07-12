@@ -26,10 +26,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DownloadController extends Controller
 {
+
     public function downloadBusinessData(Request $request)
     {
         $userId = Auth::id();
-
+$name=Auth::user()->name;
         $businessId = $this->getValidatedBusinessId($request);
         $business = Business::where('id', $businessId)
             ->where('user_id', Auth::id())
@@ -74,6 +75,7 @@ class DownloadController extends Controller
                 ->first();
 
         $data = [
+            'name'=>$name,
             'landing page' => $business->name,
             'latest_business_idea' => $latestIdea,
             'testing_your_idea' => $ideas,
