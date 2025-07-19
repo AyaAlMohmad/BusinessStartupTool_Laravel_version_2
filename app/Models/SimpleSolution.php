@@ -14,6 +14,7 @@ class SimpleSolution extends Model
         'validation_questions',
         'future_plan',
         'notes',
+        'start_point',
         'business_id','user_id',
     ];
 
@@ -21,6 +22,7 @@ class SimpleSolution extends Model
         'big_solution' => 'array',
         'entry_strategy' => 'array',
         'things' => 'array',
+        'start_point' => 'array',
         'validation_questions' => 'array',
         'future_plan' => 'array',
         'notes' => 'array',

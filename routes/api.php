@@ -21,6 +21,7 @@ use App\Http\Controllers\API\SalesStrategyController;
 use App\Http\Controllers\API\VideoController;
 use App\Http\Controllers\API\PasswordResetController;
 use App\Http\Controllers\API\SimpleSolutionController;
+use App\Http\Controllers\API\StoryController;
 use App\Http\Controllers\API\TestingYourIdeaController;
 use App\Http\Controllers\API\WebsiteController;
 
@@ -72,6 +73,14 @@ Route::prefix('simple-solutions')->middleware('auth:sanctum')->group(function ()
     Route::get('/{id}', [SimpleSolutionController::class, 'show']);        
     Route::put('/{id}', [SimpleSolutionController::class, 'update']);      
     Route::delete('/{id}', [SimpleSolutionController::class, 'destroy']);  
+});
+
+Route::prefix('stories')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [StoryController::class, 'index']);          
+    Route::post('/', [StoryController::class, 'store']);          
+    Route::get('/{id}', [StoryController::class, 'show']);        
+    Route::post('/{id}', [StoryController::class, 'update']);      
+    Route::delete('/{id}', [StoryController::class, 'destroy']);  
 });
 
 Route::get('/download-business-data', [DownloadController::class, 'downloadBusinessData']);

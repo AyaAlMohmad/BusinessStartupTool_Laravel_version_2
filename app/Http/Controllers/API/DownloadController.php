@@ -26,7 +26,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DownloadController extends Controller
 {
-
     public function downloadBusinessData(Request $request)
     {
         $userId = Auth::id();
@@ -76,7 +75,7 @@ $name=Auth::user()->name;
 
         $data = [
             'name'=>$name,
-            'landing page' => $business->name,
+            'landing_page' => $business->name,
             'latest_business_idea' => $latestIdea,
             'testing_your_idea' => $ideas,
             'test_setup' => $testSetup,
