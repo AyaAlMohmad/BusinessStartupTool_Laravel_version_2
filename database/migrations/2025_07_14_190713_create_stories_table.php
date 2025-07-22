@@ -16,8 +16,13 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->json('title');
             $table->json('educational');
-            $table->json('content');
+            $table->json('my_story');
+            $table->json('country');
+            $table->json('aim');
+            $table->json('game');
+            $table->json('who_am_i');
             $table->string('image');
+            $table->string('link');
             $table->timestamps();
         });
     }

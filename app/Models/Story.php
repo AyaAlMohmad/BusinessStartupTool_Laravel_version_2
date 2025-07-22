@@ -12,14 +12,23 @@ class Story extends Model
         'user_id',
         'title',
         'educational',
-        'content',
+        'my_story',
+        'country',
+        'aim',
+        'game',
+        'who_am_i',
         'image',
+        'link',
     ];
     protected $casts = [
         'user_id' => 'integer',
         'educational'=>'json',
         'title' => 'json',
-        'content' => 'json',
+        'my_story' => 'json',
+        'country' => 'json',
+        'aim' => 'json',
+        'game' => 'json',
+        'who_am_i' => 'json',
     ];
     public function user()
     {

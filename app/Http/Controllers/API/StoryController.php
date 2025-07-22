@@ -25,7 +25,12 @@ class StoryController extends Controller
         $request->validate([
             'title' => 'nullable',
             'educational' => 'nullable',
-            'content' => 'nullable',
+            'my_story' => 'nullable',
+            'country'=>'nullable',
+            'aim'=>'nullable',
+            'game'=>'nullable',
+            'who_am_i'=>'nullable',
+            'link' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -42,8 +47,14 @@ class StoryController extends Controller
                 'user_id' => Auth::id(), 
                 'educational' => $request->educational,
                 'title' => $request->title,
-                'content' => $request->content,
+                'my_story' => $request->my_story,
+                'country'=>$request->country,
+                'aim'=>$request->aim,
+                'game'=>$request->game,
+                'who_am_i'=>$request->who_am_i,
+                
                 'image' => $imagePath,
+                'link' => $request->link,
             ]);
 
             return response()->json([
@@ -80,63 +91,57 @@ class StoryController extends Controller
         }
 
     }
-    public function update(Request $request, $id)
-    {
-        // $request->validate([
-        //     'title' => 'sometimes|nullable',
-        //     'educational' => 'sometimes|nullable',
-        //     'content' => 'sometimes|nullable',
-        //     // 'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
-    
-    
-    
-        try {
-            $story = Story::where('user_id', Auth::id())->findOrFail($id);
-     
-       
-            $imagePath = null;
-            if ($request->hasFile('image')) {
-                  // Delete old image if exists
-                  if ($story->image && file_exists(public_path($story->image))) {
-                    unlink(public_path($story->image));
-                }
-                
-                $image = $request->file('image');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images'), $imageName);
-                $imagePath = '/images/' . $imageName;
-            }
- 
+public function update(Request $request, $id)
+{
+    try {
+        $story = Story::where('user_id', Auth::id())->findOrFail($id);
 
-            $data = [
-                'user_id' => Auth::id(),
-                'educational' => $request->educational,
-                'title' => $request->title,
-                'content' => $request->content,
-            ];
-            
-            if ($imagePath) {
-                $data['image'] = $imagePath;
+        // تحديث الصورة إذا أُرسلت
+        if ($request->hasFile('image')) {
+            if ($story->image && file_exists(public_path($story->image))) {
+                unlink(public_path($story->image));
             }
-            
-            $story->update($data);
-            
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Story updated successfully',
-                'data' => $story
-            ]);
-        } catch (\Exception $e) {
-       
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to update story or story not owned by you',
-                'error' => $e->getMessage()
-            ], 500);
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $story->image = '/images/' . $imageName;
         }
+
+        // تحديث الحقول الأخرى فقط إذا أُرسلت
+        $fields = [
+            'educational',
+            'title',
+            'my_story',
+            'country',
+            'aim',
+            'game',
+            'who_am_i',
+            'link',
+        ];
+
+        foreach ($fields as $field) {
+            if ($request->has($field)) {
+                $story->$field = $request->$field;
+            }
+        }
+
+        $story->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Story updated successfully',
+            'data' => $story
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to update story or story not owned by you',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
+
 
     public function destroy($id)
     {
